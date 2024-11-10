@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://golangci-lint.run/jsonschema/golangci.jsonschema.json
+linters:
+  enable-all: true
+linters-settings:
+  mnd:
+    ignored-numbers: ["32", "64"]
+  errcheck:
+    exclude-functions:
+      - io/ioutil.ReadFile
+      - io.Copy(*bytes.Buffer)
+      - io.Copy(os.Stdout)
+      - (*bytes.Buffer).Write
+      - (*bytes.Buffer).WriteString
+      - (*go.uber.org/zap/buffer.Buffer).Write
+      - (*go.uber.org/zap/buffer.Buffer).WriteString
+      - (*go.uber.org/zap/buffer.Buffer).WriteByte
+  depguard:
+    rules:
+      example:
+        files:
+          - "example/**/*.go"
+        allow:
+          - "$gostd"
+          - "github.com/tvanriel/zaplipgloss" # this is used in example code.
+      main:
+        allow:
+          - "$gostd"
+          - "github.com/charmbracelet/lipgloss"
+          - "go.uber.org/zap"
+        
+
